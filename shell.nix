@@ -1,12 +1,21 @@
 { pkgs ? import <nixpkgs> { } }:
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs.buildPackages; [
-    (haskell.lib.justStaticExecutables (haskellPackages.cabal-install))
+let
+  inherit (pkgs) haskell;
+  haskellPackages = haskell.packages.ghc98;
+  inherit (haskellPackages)
+    cabal-install
     ghc
     ghcid
     haskell-language-server
-    (haskell.lib.dontCheck (haskellPackages.callHackage "fourmolu" "0.12.0.0" {}))
-    pkg-config
-    zlib.dev
+    ;
+in pkgs.mkShell {
+  nativeBuildInputs = [
+    (haskell.lib.justStaticExecutables (cabal-install))
+    ghc
+    ghcid
+    haskell-language-server
+    (haskell.lib.justStaticExecutables (haskell.lib.dontCheck (pkgs.haskellPackages.callHackage "fourmolu" "0.12.0.0" {})))
+    pkgs.pkg-config
+    pkgs.zlib.dev
   ];
 }
