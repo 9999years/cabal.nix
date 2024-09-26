@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 let
   inherit (pkgs) haskell;
-  haskellPackages = haskell.packages.ghc98;
+  haskellPackages = haskell.packages.ghc910;
   inherit (haskellPackages)
     cabal-install
     ghc
@@ -10,7 +10,7 @@ let
     ;
 in pkgs.mkShell {
   nativeBuildInputs = [
-    (haskell.lib.justStaticExecutables (cabal-install))
+    (haskell.lib.justStaticExecutables cabal-install)
     ghc
     ghcid
     haskell-language-server
