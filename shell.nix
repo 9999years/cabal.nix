@@ -13,8 +13,8 @@ in pkgs.mkShell {
     (haskell.lib.justStaticExecutables (cabal-install))
     ghc
     ghcid
-    haskell-language-server
     (haskell.lib.justStaticExecutables (haskell.lib.dontCheck (pkgs.haskellPackages.callHackage "fourmolu" "0.12.0.0" {})))
+    haskell-language-server
     pkgs.pkg-config
     pkgs.zlib.dev
   ];
