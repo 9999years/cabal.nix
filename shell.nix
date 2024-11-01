@@ -15,6 +15,7 @@ in pkgs.mkShell {
     ghcid
     (haskell.lib.justStaticExecutables (haskell.lib.dontCheck (pkgs.haskellPackages.callHackage "fourmolu" "0.12.0.0" {})))
     haskell-language-server
+    pkgs.ghciwatch
     pkgs.pkg-config
     pkgs.zlib.dev
   ];
